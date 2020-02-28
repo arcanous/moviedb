@@ -1,5 +1,6 @@
-import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, NotFoundException, Put, Delete, BadRequestException, Body, Post } from '@nestjs/common';
 import { DirectorsService } from './directors.service';
+import { Director } from './../app.model';
 
 @Controller('directors')
 export class DirectorsController {
@@ -16,6 +17,39 @@ export class DirectorsController {
 
     if (director) {
       return director;
+    } else {
+      throw new NotFoundException();
+    }
+  }
+
+  @Post()
+  addDirector(@Body() director: Partial<Director>) {
+    const result = this.directorsService.addDirector(director);
+
+    if (result) {
+      return result;
+    } else {
+      throw new BadRequestException();
+    }
+  }
+
+  @Put(':id')
+  updateDirector(@Param('id') id: string, @Body() director: Partial<Director>) {
+    const result = this.directorsService.updateDirector(id, director);
+
+    if (result) {
+      return result;
+    } else {
+      throw new BadRequestException();
+    }
+  }
+
+  @Delete(':id')
+  deleteDirector(@Param('id') id: string) {
+    const result = this.directorsService.deleteDirector(id);
+
+    if (result) {
+      return;
     } else {
       throw new NotFoundException();
     }

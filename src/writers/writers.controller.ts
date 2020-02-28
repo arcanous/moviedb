@@ -1,5 +1,6 @@
-import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, NotFoundException, Put, Delete, BadRequestException, Body, Post } from '@nestjs/common';
 import { WritersService } from './writers.service';
+import { Writer } from './../app.model';
 
 @Controller('writers')
 export class WritersController {
@@ -16,6 +17,39 @@ export class WritersController {
 
     if (writer) {
       return writer;
+    } else {
+      throw new NotFoundException();
+    }
+  }
+
+  @Post()
+  addWriter(@Body() writer: Partial<Writer>) {
+    const result = this.writersService.addWriter(writer);
+
+    if (result) {
+      return result;
+    } else {
+      throw new BadRequestException();
+    }
+  }
+
+  @Put(':id')
+  updateWriter(@Param('id') id: string, @Body() writer: Partial<Writer>) {
+    const result = this.writersService.updateWriter(id, writer);
+
+    if (result) {
+      return result;
+    } else {
+      throw new BadRequestException();
+    }
+  }
+
+  @Delete(':id')
+  deleteWriter(@Param('id') id: string) {
+    const result = this.writersService.deleteWriter(id);
+
+    if (result) {
+      return;
     } else {
       throw new NotFoundException();
     }
