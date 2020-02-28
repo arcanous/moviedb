@@ -86,7 +86,7 @@ export class MoviesService {
   addActor(id: string, actorId: string) {
     const movie = find(this.movies, { id });
 
-    if (movie && actorId && !movie.actors.includes(actorId)) {
+    if (movie && actorId && !movie.actors.includes(actorId) && ACTORS_ID_MAP[actorId]) {
       movie.actors.push(actorId);
       return true;
     } else {
@@ -122,7 +122,7 @@ export class MoviesService {
   addDirector(id: string, directorId: string) {
     const movie = find(this.movies, { id });
 
-    if (movie && directorId && !movie.directors.includes(directorId)) {
+    if (movie && directorId && !movie.directors.includes(directorId) && DIRECTORS_ID_MAP[directorId]) {
       movie.directors.push(directorId);
       return true;
     } else {
@@ -158,7 +158,7 @@ export class MoviesService {
   addWriter(id: string, writerId: string) {
     const movie = find(this.movies, { id });
 
-    if (movie && writerId && !movie.writers.includes(writerId)) {
+    if (movie && writerId && !movie.writers.includes(writerId) && WRITERS_ID_MAP[writerId]) {
       movie.writers.push(writerId);
       return true;
     } else {
