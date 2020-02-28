@@ -1,4 +1,4 @@
-import { pick, find } from 'lodash';
+import { find } from 'lodash';
 import { Injectable } from '@nestjs/common';
 import { ACTORS, MOVIES } from './../app.utils';
 import { Actor } from './../app.model';

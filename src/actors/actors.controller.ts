@@ -6,16 +6,16 @@ export class ActorsController {
   constructor(private actorsService: ActorsService) {}
 
   @Get()
-  getMovies() {
+  getActors() {
     return this.actorsService.getActors();
   }
 
   @Get(':id')
   getActor(@Param('id') id: string) {
-    const movie = this.actorsService.getActor(id);
+    const actor = this.actorsService.getActor(id);
 
-    if (movie) {
-      return movie;
+    if (actor) {
+      return actor;
     } else {
       throw new NotFoundException();
     }
