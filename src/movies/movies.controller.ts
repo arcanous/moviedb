@@ -6,6 +6,10 @@ import { Movie } from '../app.model';
 export class MoviesController {
   constructor(private moviesService: MoviesService) {}
 
+  /*
+   * MOVIE CRUD
+   */
+
   @Get()
   getMovies() {
     return this.moviesService.getMovies();
@@ -47,6 +51,43 @@ export class MoviesController {
   @Delete(':id')
   deleteMovie(@Param('id') id: string) {
     const result = this.moviesService.deleteMovie(id);
+
+    if (result) {
+      return;
+    } else {
+      throw new NotFoundException();
+    }
+  }
+
+  /*
+   * MOVIE ACTORS CRUD
+   */
+
+  @Get(':id/actors')
+  listActors(@Param('id') id: string) {
+    const result = this.moviesService.listActors(id);
+
+    if (result) {
+      return result;
+    } else {
+      throw new NotFoundException();
+    }
+  }
+
+  @Post(':id/actors')
+  addActor(@Param('id') id: string, @Body('id') actorId: string) {
+    const result = this.moviesService.addActor(id, actorId);
+
+    if (result) {
+      return { actorId };
+    } else {
+      throw new BadRequestException();
+    }
+  }
+
+  @Delete(':id/actors/:actorId')
+  removeActor(@Param('id') id: string, @Param('actorId') actorId: string) {
+    const result = this.moviesService.removeActor(id, actorId);
 
     if (result) {
       return;
