@@ -1,3 +1,4 @@
+import { pick, find } from 'lodash';
 import { Injectable } from '@nestjs/common';
 import { MOVIES } from '../app.utils';
 import { Movie } from '../app.model';
@@ -11,7 +12,11 @@ export class MoviesService {
   }
 
   getMovies() {
-    return this.movies;
+    return this.movies.map(movie => pick(movie, ['id', 'name', 'year', 'plot']));
+  }
+
+  getMovie(id: string) {
+    return find(this.movies, { id });
   }
 
 }
