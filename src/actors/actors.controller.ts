@@ -1,6 +1,8 @@
 import { Actor } from './../app.model';
 import { Controller, Get, Param, NotFoundException, Put, Delete, BadRequestException, Body, Post } from '@nestjs/common';
 import { ActorsService } from './actors.service';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Controller('actors')
 export class ActorsController {
@@ -8,7 +10,7 @@ export class ActorsController {
 
   @Get()
   getActors() {
-    return this.actorsService.getActors();
+    return of(this.actorsService.getActors()).pipe(delay(500));
   }
 
   @Get(':id')

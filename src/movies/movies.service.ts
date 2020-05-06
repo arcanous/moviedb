@@ -27,7 +27,7 @@ export class MoviesService {
     return find(this.movies, { id });
   }
 
-  addMovie({ name, plot, year }: Partial<Movie>) {
+  addMovie({ name, plot, year, actors = [], directors = [], writers = [] }: Partial<Movie>) {
     let result;
 
     if (name && plot && year) {
@@ -36,9 +36,9 @@ export class MoviesService {
         name,
         plot,
         year,
-        actors: [],
-        directors: [],
-        writers: [],
+        actors,
+        directors,
+        writers,
       };
       this.movies.push(result);
     }
