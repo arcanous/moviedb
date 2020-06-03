@@ -46,13 +46,16 @@ export class MoviesService {
     return result;
   }
 
-  updateMovie(id: string, { name, plot, year }: Partial<Movie>) {
+  updateMovie(id: string, { name, plot, year, actors, writers, directors }: Partial<Movie>) {
     const movie = find(this.movies, { id });
 
     if (name && plot && year && movie) {
       movie.name = name;
       movie.plot = plot;
       movie.year = year;
+      movie.actors = actors;
+      movie.writers = writers;
+      movie.directors = directors;
     }
 
     return movie;
